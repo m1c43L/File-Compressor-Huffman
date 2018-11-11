@@ -4,11 +4,12 @@
 */
 
 #include <cstdlib>
+#include <iostream>
 #include "characters.h"
 
 template <class type>
 
-class myarrlist{
+class myarrlist {
 
 
 private:
@@ -27,6 +28,8 @@ public:
   ~myarrlist();
 
   void add(type t);
+
+  //void add(type * t);
 
   void remove(int indx);
 

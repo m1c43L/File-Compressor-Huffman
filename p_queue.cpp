@@ -3,6 +3,7 @@
 
 /* types class declared here*/
 template class p_queue<char_node>;
+template class p_queue<char_node*>;
 template class p_queue<int>;
 
 

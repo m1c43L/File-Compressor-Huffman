@@ -4,6 +4,7 @@
 
 /* types class must be declared here*/
 template class myarrlist<char_node>;
+template class myarrlist<char_node*>;
 template class myarrlist<int>;
 
 

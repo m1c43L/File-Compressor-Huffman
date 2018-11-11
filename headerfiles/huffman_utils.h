@@ -52,13 +52,32 @@ public:
 };
 
 
+
+
 /*
 *
 */
 
-class huffman_compress{
+class huffman_tree{
 
 private:
+
+  char_node * root;
+
+  void tree_traverser(char_node *);
+
+public:
+
+  huffman_tree(p_queue<char_node*> & queue);
+
+  ~huffman_tree();
+
+  void print_huffman_tree();
+
+
+
+
+
 
 
 

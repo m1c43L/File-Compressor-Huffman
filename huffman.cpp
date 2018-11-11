@@ -1,5 +1,5 @@
 #include "headerfiles/huffman_utils.h"
-#include <iostream>
+
 
 /*TODO
 * create a heap to be used for huffman algorithm.
@@ -26,25 +26,34 @@ using namespace std;
 
 int main(){
 
-p_queue <int> * t = new p_queue<int>();
+p_queue <char_node*>  t;
 
-
-t->add(10);
-t->add(3);
-t->add(5);
-t->add(8);
-t->add(2);
-t->add(7);
-t->add(8);
-
-
-t->build_heap();
-
-while(!(t->is_empty()) ){
-  cout << t->get_top() << endl;
+/*
+for(int i = 0; i < 10; i++){
+  t.add(new char_node (97 + i, 100 - i, false));
 }
+*/
+t.add(new char_node (97, 0, false));
+t.add(new char_node (97 + 1, 10, false));
+t.add(new char_node (97 + 2, 15, false));
+t.add(new char_node (97 + 3, 20, false));
+t.add(new char_node (97 + 4, 9, false));
 
-delete t;
+
+// segfault on build_heap
+t.build_heap();
+//t.heapify(0);
+
+//while(!t.is_empty()){
+  //cout << " " << t.get_top()->unique_char << endl;
+//}
+
+//huffman_tree tree(t);
+
+//tree.print_huffman_tree();
+
+
+
   return 0;
 
 }

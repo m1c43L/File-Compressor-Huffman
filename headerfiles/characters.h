@@ -1,7 +1,10 @@
 #define TYPE_CHAR char
 #define TYPE_INT  unsigned int
 
+
 struct char_node{
+
+public:
 
   TYPE_CHAR unique_char;
 
@@ -9,22 +12,28 @@ struct char_node{
 
   bool is_internal_node;
 
-  char_node left;
+  char_node * left;
 
-  char_node right;
+  char_node * right;
 
 
   char_node(){
-    unique_char = '\0';
-    frequency = 0;
-    is_internal_node = false;
+    unique_char      = '\0';
+    frequency        = 0;
+    is_internal_node = true;
+    left             = NULL;
+    right            = NULL;
   }
 
   // struct constructor
   // creates a char_node instance with altributes
   char_node( TYPE_CHAR character, TYPE_INT freq,  bool is_internal)
   : unique_char(character), frequency(freq),
-    is_internal_node(is_internal)  { }
+    is_internal_node(is_internal)
+    {
+      left  = NULL;
+      right = NULL;
+    }
 
 
   // struct destructor
