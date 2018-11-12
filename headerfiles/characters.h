@@ -4,8 +4,6 @@
 
 struct char_node{
 
-public:
-
   TYPE_CHAR unique_char;
 
   TYPE_INT frequency;
@@ -51,5 +49,25 @@ public:
   bool operator<(const char_node & node){
     return this->frequency < node.frequency;
   }
+
+};
+
+
+
+class char_map{
+
+private:
+
+  myarrlist <char_node*> * map;
+
+public:
+
+  char_map(int );
+
+  ~char_map();
+
+  myarrlist * get_map();
+
+  void increment_char(int );
 
 };

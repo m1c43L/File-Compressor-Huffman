@@ -8,6 +8,12 @@ template class myarrlist<char_node*>;
 template class myarrlist<int>;
 
 
+template <class type>
+  myarrlist<type>::myarrlist(int init_size){
+    _size      = 0;
+    _capacity  = init_size;
+    _list      = new type[_capacity];
+  }
 
 
 /* myarrlist implementation*/

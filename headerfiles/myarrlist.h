@@ -25,6 +25,8 @@ public:
 
   myarrlist();
 
+  myarrlist(int );
+
   ~myarrlist();
 
   void add(type t);

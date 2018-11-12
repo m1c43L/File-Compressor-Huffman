@@ -1,84 +1,71 @@
 #include "headerfiles/huffman_utils.h"
 
 
-/* types class declared here*/
-template class p_queue<char_node>;
-template class p_queue<char_node*>;
-template class p_queue<int>;
+int p_queue::left(int indx){
+
+    if(indx) return 2 * indx;
+    return 1;
+
+}
 
 
 
-template <class type>
-  int p_queue<type>::left(int indx){
+int p_queue::right(int indx){
 
-    return 2 * indx;
+    if(indx) return 2 * indx + 1;
+    return 2;
 
-  }
-
-
-
-template <class type>
-  int p_queue<type>::right(int indx){
-
-    return 2 * indx + 1;
-
-  }
+}
 
 
 
-template <class type>
-  void p_queue<type>::swap(int indx1, int indx2){
+void p_queue::swap(int indx1, int indx2){
 
-    type temp = (*queue)[indx1];
-    (*queue)[indx1] = (*queue)[indx2];
-    (*queue)[indx2] = temp;
+    char_node * temp = (*queue)[indx1];
+    (*queue)[indx1]  = (*queue)[indx2];
+    (*queue)[indx2]  = temp;
 
-  }
-
-
-
-template <class type>
-  p_queue<type>::p_queue(){
-
-    queue = new myarrlist<type>();
-
-  }
+}
 
 
 
-template <class type>
- p_queue<type>::~p_queue(){
+p_queue::p_queue(){
+
+    queue = new myarrlist<char_node*>();
+
+}
+
+
+
+p_queue::~p_queue(){
 
    delete queue;
 
- }
+}
 
 
 
-template <class type>
-  void p_queue<type>::build_heap(){
+void p_queue::build_heap(){
 
-    for(int i = (queue->size() / 2); i >= 0; i--)
-      heapify(i);
+  for(int i = (queue->size() / 2); i >= 0; i--)
+    heapify(i);
 
-  }
-
+}
 
 
-template <class type>
-  int p_queue<type>::least(int indx1, int indx2){
 
-    return ((*queue)[indx1] < (*queue)[indx2])? indx1 : indx2;
+int p_queue::least(int indx1, int indx2){
 
-  }
+  return ( *((*queue)[indx1]) < *((*queue)[indx2]) )? indx1 : indx2;
+
+}
 
 
 /*
 * NOTE : this heapify follows min heap.
 *        recursive call to each subroot when modified.
 */
-template <class type>
-  void p_queue<type>::heapify(int indx){
+void p_queue::heapify(int indx){
 
     // base case
     if(indx < 0 ||
@@ -89,14 +76,14 @@ template <class type>
 
     if(left(indx) >= queue->size()){ // left child is null
 
-      if((*queue)[indx] > (*queue)[right(indx)]){
+      if( *((*queue)[indx]) > *((*queue)[right(indx)]) ){
         swap(indx, right(indx));
         heapify(right(indx));
       }
 
     }else if(right(indx) >= queue->size()){ // right child is null
 
-      if((*queue)[indx] > (*queue)[left(indx)]){
+      if( *((*queue)[indx]) > *((*queue)[left(indx)]) ){
         swap(indx, left(indx));
         heapify(left(indx));
       }
@@ -104,46 +91,43 @@ template <class type>
     }else{ // full subtree
 
       int indx_of_child = least(left(indx), right(indx));
-      if( (*queue)[indx] < (*queue)[indx_of_child] )
+      if( *((*queue)[indx]) < *((*queue)[indx_of_child]) )
         return;
       swap(indx_of_child, indx);
       heapify(indx_of_child);
 
     }
 
-  }// end of heapify
+}// end of heapify
 
 
 
 /*NOTE : may throw exception when queue size < 1*/
-template <class type>
-  type p_queue<type>::get_top(){
+char_node* p_queue::get_top(){
 
     if(!queue->size()) throw "Empty queue";
 
-      type temp = (*queue)[0];
+      char_node* temp = (*queue)[0];
       (*queue)[0] =(*queue)[queue->size() - 1];
       queue->remove(queue->size() - 1);
       heapify(0);
 
       return temp;
 
-  }// end of get_top
+}// end of get_top
 
 
 
-template <class type>
-  void p_queue<type>::add(type t){
+void p_queue::add(char_node* t){
 
     queue->add(t);
 
-  }// add
+}// add
 
 
 
-template <class type>
-  bool p_queue<type>::is_empty(){
+bool p_queue::is_empty(){
 
     return queue->size() == 0;
 
-  }// is_empty
+}// is_empty

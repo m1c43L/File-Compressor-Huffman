@@ -26,31 +26,31 @@ using namespace std;
 
 int main(){
 
-p_queue <char_node*>  t;
+p_queue  * t = new p_queue();
+
+
+
+for(int i = 0; i < 10; i++){
+  t->add( new char_node (97 + i, 100 - i, false));
+}
+
+t->add(new char_node (97, 0, false));
+t->add(new char_node (97 + 1, 10, false));
+t->add(new char_node (97 + 2, 15, false));
+t->add(new  char_node (97 + 3, 20, false));
+t->add(new char_node (97 + 4, 9, false));
+
+  t->build_heap();
+//t->heapify(0);
 
 /*
-for(int i = 0; i < 10; i++){
-  t.add(new char_node (97 + i, 100 - i, false));
+while(!t->is_empty()){
+  cout << " " << t->get_top()->unique_char << endl;
 }
 */
-t.add(new char_node (97, 0, false));
-t.add(new char_node (97 + 1, 10, false));
-t.add(new char_node (97 + 2, 15, false));
-t.add(new char_node (97 + 3, 20, false));
-t.add(new char_node (97 + 4, 9, false));
+huffman_tree tree(t);
 
-
-// segfault on build_heap
-t.build_heap();
-//t.heapify(0);
-
-//while(!t.is_empty()){
-  //cout << " " << t.get_top()->unique_char << endl;
-//}
-
-//huffman_tree tree(t);
-
-//tree.print_huffman_tree();
+tree.print_huffman_tree();
 
 
 

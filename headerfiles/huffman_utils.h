@@ -4,16 +4,15 @@
 *  huffman auxiliary module
 *  simple priority queue implementation
 *  see implementation on "p_queue.cpp"
+*  NOTE : this p_queue is specialized for char_node* type only
 */
-template <class type>
 class p_queue{
 
 private:
 
   /* fields */
   /* simple arraylist, item holder */
-  myarrlist <type> * queue;
-
+  myarrlist <char_node*> * queue;
 
   /* perform heap operation */
   void heapify(int indx);
@@ -41,16 +40,15 @@ public:
   void build_heap();
 
   /* remove and return the top of the heap */
-  type get_top();
+  char_node* get_top();
 
   /* add type t into the queue */
-  void add(type t);
+  void add(char_node* t);
 
   /* return true if arrlist is empty */
   bool is_empty();
 
 };
-
 
 
 
@@ -64,22 +62,14 @@ private:
 
   char_node * root;
 
-  void tree_traverser(char_node *);
+  void tree_print_traverse(char_node *);
 
 public:
 
-  huffman_tree(p_queue<char_node*> & queue);
+  huffman_tree(p_queue * queue);
 
   ~huffman_tree();
 
   void print_huffman_tree();
-
-
-
-
-
-
-
-
 
 };
