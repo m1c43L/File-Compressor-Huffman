@@ -6,6 +6,8 @@
 template class myarrlist<char_node>;
 template class myarrlist<char_node*>;
 template class myarrlist<int>;
+template class myarrlist<bool>;
+
 
 
 template <class type>

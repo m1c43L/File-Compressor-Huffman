@@ -20,12 +20,80 @@
 
 
 
-
+/*
+ TODO : 
+*/
 
 using namespace std;
 
 int main(){
 
+
+
+
+char_map * map = new char_map(270);
+
+
+
+for(int i = 0; i < 100; i++){
+  map->increment_char( 97 + (i%10) );
+
+}
+
+
+
+
+
+myarrlist<char_node*> * arr = map->get_map();
+
+
+
+p_queue * q = new p_queue();
+
+
+
+for(int i = 0; i < arr->size(); i++){
+
+    q->add((*arr)[i]);
+
+}
+
+q->build_heap();
+/*
+while(!q->is_empty()){
+//  q->get_top();
+char_node * t =q->get_top();
+  cout << t->unique_char << " - " << t->frequency << endl ;
+  cout << "Reached here***************" << endl;
+}
+
+
+
+
+
+*/
+
+huffman_tree * t = new huffman_tree(q);
+
+
+
+
+t->print_huffman_tree();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 p_queue  * t = new p_queue();
 
 
@@ -47,11 +115,11 @@ t->add(new char_node (97 + 4, 9, false));
 while(!t->is_empty()){
   cout << " " << t->get_top()->unique_char << endl;
 }
-*/
+
 huffman_tree tree(t);
 
 tree.print_huffman_tree();
-
+*/
 
 
   return 0;

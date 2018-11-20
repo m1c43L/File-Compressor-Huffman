@@ -1,3 +1,7 @@
+#include <string>
+
+using namespace std;
+
 #define TYPE_CHAR char
 #define TYPE_INT  unsigned int
 
@@ -10,6 +14,8 @@ struct char_node{
 
   bool is_internal_node;
 
+  string code;
+
   char_node * left;
 
   char_node * right;
@@ -21,6 +27,7 @@ struct char_node{
     is_internal_node = true;
     left             = NULL;
     right            = NULL;
+    code = "";
   }
 
   // struct constructor
@@ -31,6 +38,7 @@ struct char_node{
     {
       left  = NULL;
       right = NULL;
+      code = "";
     }
 
 
@@ -38,36 +46,16 @@ struct char_node{
   // destroys struct and free memory.
   ~char_node(){  }
 
-  bool operator==(const char_node & node){
+  bool operator==(const char_node node){
     return this->frequency == node.frequency;
   }
 
-  bool operator>(const char_node & node){
+  bool operator>(const char_node node){
     return this->frequency > node.frequency;
   }
 
-  bool operator<(const char_node & node){
+  bool operator<(const char_node node){
     return this->frequency < node.frequency;
   }
-
-};
-
-
-
-class char_map{
-
-private:
-
-  myarrlist <char_node*> * map;
-
-public:
-
-  char_map(int );
-
-  ~char_map();
-
-  myarrlist * get_map();
-
-  void increment_char(int );
 
 };

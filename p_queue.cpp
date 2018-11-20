@@ -105,7 +105,7 @@ void p_queue::heapify(int indx){
 /*NOTE : may throw exception when queue size < 1*/
 char_node* p_queue::get_top(){
 
-    if(!queue->size()) throw "Empty queue";
+  if(queue->size() == 0) throw "Empty queue";
 
       char_node* temp = (*queue)[0];
       (*queue)[0] =(*queue)[queue->size() - 1];

@@ -60,9 +60,13 @@ class huffman_tree{
 
 private:
 
+  myarrlist <char> * map;
+
   char_node * root;
 
   void tree_print_traverse(char_node *);
+
+  void encode(char_node*, string);
 
 public:
 
@@ -71,5 +75,28 @@ public:
   ~huffman_tree();
 
   void print_huffman_tree();
+
+};
+
+
+
+
+
+class char_map{
+
+private:
+
+  myarrlist <char_node*> * map;
+
+public:
+
+  char_map(int );
+
+  ~char_map();
+
+  myarrlist<char_node*> * get_map();
+
+  void increment_char(int );
+
 
 };

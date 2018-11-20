@@ -2,6 +2,28 @@
 using namespace std;
 
 
+void huffman_tree::encode(char_node * node, string sym){
+
+  if(node == NULL){
+    return;
+  }else if(node->is_internal_node){
+    string temp(sym);
+    encode(node->left, (temp += "0"));
+    string temp1(sym);
+    encode(node->right, (temp1 += "1"));
+  }else{
+    node->code = sym;
+  }
+
+}
+
+
+
+/*
+*  Accepts min-heap queue
+*  builds the huffman tree from the smallest
+*  to largest char frequency
+*/
 huffman_tree::huffman_tree(p_queue * queue){
 
    //assert ( !queue.is_empty() );
@@ -28,6 +50,8 @@ huffman_tree::huffman_tree(p_queue * queue){
 
   }// while
 
+  encode(root, "");
+
 }// end of constructor
 
 
@@ -40,13 +64,13 @@ huffman_tree::~huffman_tree(){
 
 void huffman_tree::tree_print_traverse(char_node * node){
 
-  if(!node) return;
+  if(node == NULL) return;
 
   if(node->is_internal_node){
     tree_print_traverse(node->left);
     tree_print_traverse(node->right);
   }else{
-    cout << "( "<< node->unique_char << " - " << node->frequency <<" )" << endl;
+    cout << "( "<< node->unique_char << " - " << node->code <<" )" << endl;
   }
 
 }
