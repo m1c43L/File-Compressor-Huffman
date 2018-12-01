@@ -80,7 +80,9 @@ public:
 
 
 
-
+/*
+*
+*/
 
 class char_map{
 
@@ -98,5 +100,8 @@ public:
 
   void increment_char(int );
 
+  string get_code(char );
+
+  int get_frequency(char );
 
 };

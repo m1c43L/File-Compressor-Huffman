@@ -8,9 +8,13 @@ char_map::char_map(int encoding_size){
   }
 }
 
+
+
 char_map::~char_map(){
   //delete map;
 }
+
+
 
 myarrlist<char_node*> * char_map::get_map(){
 
@@ -23,6 +27,8 @@ myarrlist<char_node*> * char_map::get_map(){
   return temp;
 }
 
+
+
 void char_map::increment_char(int character){
 
   if((*map)[character] == NULL){
@@ -30,5 +36,18 @@ void char_map::increment_char(int character){
   }else{
     (*map)[character]->frequency++;
   }
+
+}
+
+
+string char_map::get_code(char character){
+
+  return (*map)[character]->code;
+
+}
+
+int char_map::get_frequency(char character){
+
+  return (*map)[character]->frequency;
 
 }
