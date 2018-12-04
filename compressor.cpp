@@ -1,66 +1,36 @@
-#include <iostream>
-#include <fstream>
+#include "headerfiles/encoder.h"
 
-#define output_file_extention ".huff"
-
- using namespace std;
-
-class compressor{
-
-private:
-
-  ifstream inputfile;
-  ofstream outputfile;
+using namespace std;
 
 
+int main(){
 
-public:
+encoder * compress = new encoder("test.txt", 10000);
 
-    compressor(const string filename, const string mode){
-           inputfile.open(filename, ios::in);
-   }
-
-
-   ~compressor(){
-     inputfile.close();
-     cout << "file closed." << endl;
-   }
-
-    void print_input_file_content(){
-      char c;
-      while((c = inputfile.get()) != EOF){
-        cout << c ;
-      }
-      test();
-   }
-
-private:
+char_map * map = new char_map(270);
 
 
-  void test(){
-     cout << "private test" << endl;
-  }
+compress->load_chars_to(map);
+myarrlist<char_node*> * arr = map->get_map();
+p_queue * q = new p_queue();
+for(int i = 0; i < arr->size(); i++){
+    q->add((*arr)[i]);
+}
 
+//
+q->build_heap();
+huffman_tree * t = new huffman_tree(q) ;
+t->print_huffman_tree();
+compress->load_bits_from(map);
 
-
-};
-
-
-
-
-
-
-
-
-
-int main(int argc, const char **  argv){
-
-  string s("D");
-
-  compressor * c = new compressor(argv[1], s);
-  c->print_input_file_content();
-  delete c;
-
-
+ //cout << "complete!!" << endl;
+compress->encode();
+/*
+delete compress;
+delete map;
+delete arr;
+delete q;
+delete t;
+*/
   return 0;
 }

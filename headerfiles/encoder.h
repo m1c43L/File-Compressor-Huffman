@@ -3,25 +3,18 @@
 
 #define EXTENSION ".huff"
 #define NUM_OF_BITS 8
+#define NUM_OF_BITS_DGT_COUNT 1
 #define VALUE_OF_MSB -256
 
 class encoder{
 
 private:
 
-  ifstream inputfile;
-
-  ofstream outputfile;
-
   string filename;
 
   myarrlist <bool> * bits;
 
-
-
   char bits_to_char(int begin_indx, int length);
-
-  void append_char_to_bits(char );
 
   string make_file_out_name();
 
@@ -32,11 +25,13 @@ public:
 
   ~encoder();
 
-  void load_bits();
+  void load_chars_to(char_map * map);
 
-  string encode();
+  void load_bits_from(char_map * map);
 
-  bool is_open(string filename);
+  void encode();
+
+  void write_heading(string orig_extension, string header, int extra_bits_count);
 
 
 };

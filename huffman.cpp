@@ -1,5 +1,5 @@
 #include "headerfiles/huffman_utils.h"
-
+#include <fstream>
 
 /*TODO
 * create a heap to be used for huffman algorithm.
@@ -28,7 +28,13 @@ using namespace std;
 
 int main(){
 
-
+ ofstream s;
+ s.open("test.txt", ofstream::out | ofstream::trunc);
+ int count = 97;
+ char xa = 97;
+ s<< count;
+ s<< 97;
+ s << xa;
 char_map * map = new char_map(270);
 
 

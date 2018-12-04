@@ -15,7 +15,6 @@ char_map::~char_map(){
 }
 
 
-
 myarrlist<char_node*> * char_map::get_map(){
 
   myarrlist <char_node*> * temp = new myarrlist<char_node*>();
@@ -31,6 +30,10 @@ myarrlist<char_node*> * char_map::get_map(){
 
 void char_map::increment_char(int character){
 
+  if(character < 0){ // handles negative chars
+   character += 255;
+  }
+
   if((*map)[character] == NULL){
     (*map)[character] = new char_node(character, 1, false);
   }else{
@@ -40,7 +43,12 @@ void char_map::increment_char(int character){
 }
 
 
-string char_map::get_code(char character){
+string char_map::get_code(int character){
+
+
+    if(character < 0){ // handles negative chars
+     character += 255;
+    }
 
   return (*map)[character]->code;
 

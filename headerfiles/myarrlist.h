@@ -16,8 +16,8 @@ private:
 
   const int _INIT_CAP = 256;
 
-  int _capacity;
-  int _size;
+  long long int _capacity;
+  long long int _size;
   type * _list;
 
 
@@ -43,9 +43,9 @@ public:
 
   void shrink(int new_size);
 
-  int size();
+  long long int size();
 
-  int capacity();
+  long long int capacity();
 
 
 

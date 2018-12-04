@@ -19,7 +19,7 @@ void huffman_tree::encode(char_node * node, string sym){
 
 
 
-/*
+/* TODO REWORK logic.
 *  Accepts min-heap queue
 *  builds the huffman tree from the smallest
 *  to largest char frequency
@@ -50,7 +50,7 @@ huffman_tree::huffman_tree(p_queue * queue){
 
   }// while
 
-  encode(root, "");
+  //encode(root, "");
 
 }// end of constructor
 

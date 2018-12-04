@@ -121,11 +121,11 @@ template <class type>
 
 
 template <class type>
-  int myarrlist<type>::size() {
+  long long int myarrlist<type>::size() {
      return _size;
    }// size
 
 template <class type>
-  int myarrlist<type>::capacity(){
+  long long int myarrlist<type>::capacity(){
      return _capacity;
    }// capacity

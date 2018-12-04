@@ -100,7 +100,7 @@ public:
 
   void increment_char(int );
 
-  string get_code(char );
+  string get_code(int );
 
   int get_frequency(char );
 
