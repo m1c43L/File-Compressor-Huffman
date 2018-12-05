@@ -40,6 +40,7 @@ if(is_compress){
   }
   q->build_heap();
   huffman_tree * t = new huffman_tree(q);
+  t->print_huffman_tree();
   compress->load_bits_from(map);
   compress->write_heading(map);
   compress->encode();
@@ -64,6 +65,7 @@ if(is_compress){
   }
   q->build_heap();
   huffman_tree * t = new huffman_tree(q);
+  t->print_huffman_tree();
   decode->decode(t);
   cout << "Decoding Successful!" << endl;
 

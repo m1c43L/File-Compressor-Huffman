@@ -64,7 +64,7 @@ int char_map::get_frequency(char character){
 
 /* return string representation of map to format charfrequency; */
 string char_map::to_string(){
-  string buffer(";");
+  string buffer("");
   for(int i = 0; i < map->size(); i++){
     if((*map)[i] != NULL){
       buffer.push_back((*map)[i]->unique_char);

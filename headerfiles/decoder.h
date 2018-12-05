@@ -19,7 +19,7 @@ private:
   myarrlist <bool> * bits;
 
 
-  void append_char_to_bits(int );
+  void append_char_to_bits(char );
 
   string make_file_out_name();
 

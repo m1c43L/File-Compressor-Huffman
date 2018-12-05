@@ -100,31 +100,27 @@ void decoder::read_heading(myarrlist <char_node*> * characters){
 /*
 * Appends bits representation of char to arrlist bits.
 */
-void decoder::append_char_to_bits(int c){
+void decoder::append_char_to_bits(char c){
 
-  int bit_value =  VALUE_OF_MSB * -1;
+//string bin("");
+//char temp = c;
 
-  bits->add((c < 0) ? 1 : 0);    // if c is negative then MSB must be 1.
-  c += (c < 0) ?  bit_value : 0; // subtract MSB if c is negatives
-  bit_value /= 2;               // set value of bit to next below.
-
-  for(int i = 0; i < NUM_OF_BITS - 1 ;i++){
-
-    if(c >= bit_value){
-      bits->add(1);
-      c -= bit_value;
-    }else{
-      bits->add(0);
-    }
-
-    bit_value /= 2;
-
+  char cs = -128;
+  for(int i = 0; i < NUM_OF_BITS; i++){
+    bits->add(c & cs);
+    c = c << 1;
+    //bin.push_back((c & cs)? '1':'0');
   }
+
+
+  //std::cout << temp << " BIN : " << bin << std::endl;
+
 
   if(c != 0 ) {
     std::cout << "ERROR: char to bits conversion unsucessful. " << c << std::endl;
     exit(-1);
   }
+
 
 }// append_char_to_bits
 
@@ -141,7 +137,9 @@ string decoder::make_file_out_name(){
 
   }
 
-  outfile.push_back('.');
+  if(extension.compare("") != 0)
+    outfile.push_back('.');
+
   outfile += extension;
 
   return outfile;

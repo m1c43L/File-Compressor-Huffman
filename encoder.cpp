@@ -117,7 +117,7 @@ char encoder::bits_to_char(int begin_indx, const int length){
   }// if
 
 
-  value = (value * value) / value; // remove the sign of msb
+  value *=  -1; // remove the sign of msb
   value /= 2;
 
   for(int i = begin_indx + 1;  i < (begin_indx + length); i++){
@@ -128,8 +128,14 @@ char encoder::bits_to_char(int begin_indx, const int length){
 
     value /= 2;
   }// for
+/*
+string bin("");
+  for(int i = begin_indx; i < begin_indx + length; i++){
+    bin.push_back((*bits)[i] ? '1':'0');
+  }
 
-
+std::cout << c << "in binary" << bin << std::endl;
+*/
   return c;
 
 }// bits_to_char
