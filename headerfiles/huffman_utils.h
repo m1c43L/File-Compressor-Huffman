@@ -1,5 +1,5 @@
 #include "myarrlist.h"
-
+#include <fstream>
 /*
 *  huffman auxiliary module
 *  simple priority queue implementation
@@ -48,6 +48,9 @@ public:
   /* return true if arrlist is empty */
   bool is_empty();
 
+  /* return the size of the current queue */
+  int size();
+
 };
 
 
@@ -76,6 +79,8 @@ public:
 
   void print_huffman_tree();
 
+  void decode_write(myarrlist <bool> *bits, string original_file_name);
+
 };
 
 
@@ -87,6 +92,8 @@ public:
 class char_map{
 
 private:
+
+  int char_node_count;
 
   myarrlist <char_node*> * map;
 
@@ -103,5 +110,9 @@ public:
   string get_code(int );
 
   int get_frequency(char );
+
+  string to_string();
+
+  int get_char_node_count();
 
 };

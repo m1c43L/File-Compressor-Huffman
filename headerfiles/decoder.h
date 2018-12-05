@@ -1,33 +1,40 @@
+#include "huffman_utils.h"
+
+#define EXTENSION ".huff"
+#define NUM_OF_BITS 8
+#define NUM_OF_BITS_DGT_COUNT 1
+#define VALUE_OF_MSB -128
 
 
-
-class encoder{
+class decoder{
 
 private:
+
+  int extra_bits_count;
+
+  string extension;
 
   string filename;
 
   myarrlist <bool> * bits;
 
 
-  void append_char_to_bits(char );
+  void append_char_to_bits(int );
 
   string make_file_out_name();
 
 
 public:
 
-  dencoder(string filename, int capacity);
+  decoder(string _filename, int capacity);
 
-  ~dencoder();
+  ~decoder();
 
-  void load_chars_to(char_map * map);
+  void load_bits();
 
-  void load_bits_from(char_map * map);
+  void decode(huffman_tree * tree);
 
-  void encode();
-
-  void write_heading(int orig_extension, string header, int extra_bits_count);
+  void read_heading(myarrlist <char_node*> *characters);
 
 
 };

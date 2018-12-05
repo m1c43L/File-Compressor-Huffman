@@ -1,22 +1,21 @@
-#include "huffman_utils.h"
-#include <fstream>
+#include "decoder.h"
 
 #define EXTENSION ".huff"
 #define NUM_OF_BITS 8
 #define NUM_OF_BITS_DGT_COUNT 1
-#define VALUE_OF_MSB -256
+#define VALUE_OF_MSB -128
 
 class encoder{
 
 private:
+
+  string original_extension;
 
   string filename;
 
   myarrlist <bool> * bits;
 
   char bits_to_char(int begin_indx, int length);
-
-  string make_file_out_name();
 
 
 public:
@@ -31,7 +30,8 @@ public:
 
   void encode();
 
-  void write_heading(string orig_extension, string header, int extra_bits_count);
+  void write_heading(char_map * map);
 
+  string make_file_out_name();
 
 };

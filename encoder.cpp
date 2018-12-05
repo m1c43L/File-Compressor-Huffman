@@ -5,8 +5,16 @@
 
 encoder::encoder(string _filename, int capacity){
 
-  filename = _filename;
-  bits     = new myarrlist<bool>(capacity);
+  bool has_dot = false;
+  for(int i = 0; i < _filename.size(); i++){
+
+    if(has_dot) original_extension.push_back(_filename[i]);
+    if(_filename[i] == '.') has_dot = true;
+
+  }
+
+  filename       = _filename;
+  bits           = new myarrlist<bool>(capacity);
 
 }
 
@@ -80,17 +88,24 @@ void encoder::load_bits_from(char_map * map){
 *                         will be subtracted to the last char of the compressed file in order to
 *                         restore the original bit sequence.
 */
-void encoder::write_heading(string orig_extension, string header, int extra_bits_count){
+void encoder::write_heading( char_map * map){
 
- int char_count = orig_extension.size() + header.size() + NUM_OF_BITS_DGT_COUNT;
- std::ofstream outputfile(filename, std::ofstream::out | std::ofstream::trunc);
- outputfile  << char_count << header << extra_bits_count ;
+ string new_file_name =  make_file_out_name();
+ std::ofstream outputfile(new_file_name, std::ofstream::out | std::ofstream::trunc);
+ string header(map->to_string());
+ int extra_bits_count = NUM_OF_BITS - (bits->size() % NUM_OF_BITS);
+
+ outputfile << map->get_char_node_count() << "|";
+ outputfile << header                       ;
+ outputfile << extra_bits_count       << "|";
+ outputfile << original_extension     << "|";
+
  outputfile.close();
 
 }
 
 
-/*
+/* TODO fix the logic
 * converts segments of bits back to char
 */
 char encoder::bits_to_char(int begin_indx, const int length){
@@ -149,10 +164,7 @@ void encoder::encode(){
 
 
   string new_file_name =  make_file_out_name();
-  std::ofstream outputfile(new_file_name, std::ofstream::out | std::ofstream::trunc);
-
-
-
+  std::ofstream outputfile(new_file_name, std::ofstream::out | std::ofstream::app);
 
   // handles case when bits size is not a mulptiple of 8.
   long long int extra_bits_count = NUM_OF_BITS - (bits->size() % NUM_OF_BITS);
@@ -163,11 +175,8 @@ void encoder::encode(){
     }
   }
 
-
   long long int last_indx = bits->size();
   long long int indx = 0;
-
-std::cout <<"last indx : "<< last_indx << std::endl;
 
   // repackages bits into 8 then writes it to the outputfile.
   while(indx < last_indx) {
