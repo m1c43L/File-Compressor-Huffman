@@ -15,34 +15,14 @@ decoder::~decoder(){
 }
 
 
-void decoder::load_bits(){
 
-  std::ifstream inputfile(filename, std::ifstream::in);
-
-  if(!inputfile.is_open()) {
-    std::cout << "ERROR OPENING file : " << filename << " !" << std::endl;
-  }
-
-  char c;
-
-  // read through the file.
-  while(inputfile.get(c)){
-
-    append_char_to_bits(c);
-
-  }
-
-  inputfile.close();
-
-}
-
-
-
+/* read the data necessary to build the huhffman tree*/
 void decoder::read_heading(myarrlist <char_node*> * characters){
 
   ifstream input(filename, std::ifstream::in);
   string buffer("");
   char c;
+
   while (input.get(c)) { // get char_count
     if(c != '|')
       buffer.push_back(c);
@@ -50,10 +30,16 @@ void decoder::read_heading(myarrlist <char_node*> * characters){
       break;
   }
 
-  int char_count = stoi(buffer,NULL);
+  int char_count = stoi(buffer, NULL);
+
+  // clear buffer
   buffer = "";
+
   bool is_char = true;
-  while (input.get(c)) { // get characters with frequency. (MAIN DATA)
+
+  // get characters with frequency. (MAIN DATA to rebuild huffman_tree)
+  while (input.get(c)) {
+
      if(is_char){
        characters->add(new char_node(c));
        char_count --;
@@ -68,9 +54,11 @@ void decoder::read_heading(myarrlist <char_node*> * characters){
          buffer.push_back(c);
        }
      }
+
   }
 
-  while(input.get(c)){ // get extra_bits_count
+  // get extra_bits_count
+  while(input.get(c)){
     if(c == '|') break;
     buffer.push_back(c);
   }
@@ -78,19 +66,20 @@ void decoder::read_heading(myarrlist <char_node*> * characters){
   extra_bits_count = stoi(buffer, NULL);
   buffer = "";
 
-  while(input.get(c)){ // get extension
+  // get extension
+  while(input.get(c)){
     if(c == '|') break;
     buffer.push_back(c);
   }
 
   extension = buffer;
 
-  while(input.get(c)){
-
+  // convert each chars back to bits
+  while(input.get(c))
     append_char_to_bits(c);
 
-  }
 
+  // remove the the extra bits added to the end to make
   bits->shrink(bits->size() - extra_bits_count);
 
   input.close();
@@ -102,25 +91,19 @@ void decoder::read_heading(myarrlist <char_node*> * characters){
 */
 void decoder::append_char_to_bits(char c){
 
-//string bin("");
-//char temp = c;
+  char init_value = -128;
 
-  char cs = -128;
+  // convert char to bits sequnce
   for(int i = 0; i < NUM_OF_BITS; i++){
-    bits->add(c & cs);
+    bits->add(c & init_value);
     c = c << 1;
-    //bin.push_back((c & cs)? '1':'0');
   }
-
-
-  //std::cout << temp << " BIN : " << bin << std::endl;
 
 
   if(c != 0 ) {
     std::cout << "ERROR: char to bits conversion unsucessful. " << c << std::endl;
     exit(-1);
   }
-
 
 }// append_char_to_bits
 
@@ -147,7 +130,7 @@ string decoder::make_file_out_name(){
 
 
 /* NOTE : will replace files with the same name (see trunc).
-*
+*        rewrites bits back to char and write it to the original file.
 */
 void decoder::decode(huffman_tree * tree){
 

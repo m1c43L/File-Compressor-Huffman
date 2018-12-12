@@ -78,12 +78,12 @@ void encoder::load_bits_from(char_map * map){
 }
 
 /*
-* Writes the important data for file decompression.
+* Prepends important data for file decompression.
 *
-* @param orig_extension is the original extension prior to compression.
-* @param  characters is the list of characters along with their frequency.
+* original_extension is the original extension prior to compression.
+* @param  map is the map of characters along with their frequency.
 *         characters is important data in order to rebuild the huffman_tree for decompression.
-* @param extra_bits_count indicates the number of bits that are added if the total bit count
+* extra_bits_count indicates the number of bits that are added if the total bit count
 *                         is not a mulptiple of 8(char size in ascii). This amount
 *                         will be subtracted to the last char of the compressed file in order to
 *                         restore the original bit sequence.
@@ -105,17 +105,20 @@ void encoder::write_heading( char_map * map){
 }
 
 
-/* TODO fix the logic
-* converts segments of bits back to char
+/*
+* converts segments of 8 bits back to char
+* return the char value of 8 bits
+* Uses myarrlist bits.
+* @param indicates the bits count, most likely to always will be 8.
 */
 char encoder::bits_to_char(int begin_indx, const int length){
 
   int c = 0;
   int value = VALUE_OF_MSB;
-  if((*bits)[begin_indx]){
+
+  if((*bits)[begin_indx]){ // beginning bit is 0
     c += value;
   }// if
-
 
   value *=  -1; // remove the sign of msb
   value /= 2;
@@ -128,14 +131,7 @@ char encoder::bits_to_char(int begin_indx, const int length){
 
     value /= 2;
   }// for
-/*
-string bin("");
-  for(int i = begin_indx; i < begin_indx + length; i++){
-    bin.push_back((*bits)[i] ? '1':'0');
-  }
 
-std::cout << c << "in binary" << bin << std::endl;
-*/
   return c;
 
 }// bits_to_char

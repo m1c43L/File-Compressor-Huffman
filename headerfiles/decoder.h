@@ -18,10 +18,8 @@ private:
 
   myarrlist <bool> * bits;
 
-
+  /* Appends bits representation of char to arrlist bits.*/
   void append_char_to_bits(char );
-
-  string make_file_out_name();
 
 
 public:
@@ -30,10 +28,13 @@ public:
 
   ~decoder();
 
-  void load_bits();
+  /* generate the original file name*/
+  string make_file_out_name();
 
+  /* rewrites bits back to char and write it to the original file. */
   void decode(huffman_tree * tree);
 
+  /* read the data necessary to build the huhffman tree*/
   void read_heading(myarrlist <char_node*> *characters);
 
 

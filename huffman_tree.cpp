@@ -47,11 +47,17 @@ huffman_tree::huffman_tree(p_queue * queue){
 }// end of constructor
 
 
-
 huffman_tree::~huffman_tree(){
 
 }
 
+
+void huffman_tree::print_huffman_tree(){
+
+  char_node * temp = root;
+  tree_print_traverse(temp);
+
+}
 
 
 void huffman_tree::tree_print_traverse(char_node * node){
@@ -66,15 +72,10 @@ void huffman_tree::tree_print_traverse(char_node * node){
 
 }
 
-void huffman_tree::print_huffman_tree(){
 
-  char_node * temp = root;
-
-  tree_print_traverse(temp);
-
-}
-
-
+/*
+* 
+*/
 void huffman_tree::decode_write(myarrlist <bool> *bits, string original_file_name){
 
   std::ofstream outputfile(original_file_name, std::ofstream::out | std::ofstream::trunc);
